@@ -1,0 +1,10 @@
+backups
+el-get
+url
+elpa
+auto-save-list
+*~
+\#*\#
+.elc
+tramp
+.\#*
