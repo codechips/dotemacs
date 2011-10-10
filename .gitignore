@@ -1,5 +1,7 @@
 backups
-el-get
+abbrev_defs
+eshell/
+places
 url
 elpa
 auto-save-list
