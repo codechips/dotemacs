@@ -51,3 +51,7 @@
 ;; Trash can support
 (setq delete-by-moving-to-trash t)
 
+(setq redisplay-dont-pause t)
+
+(setq cua-enable-cua-keys nil)
+(cua-mode)

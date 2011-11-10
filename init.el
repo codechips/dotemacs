@@ -1,7 +1,7 @@
 ;; read in PATH from .bashrc
 ;;(if (not (getenv "TERM_PROGRAM"))
 ;; (setenv "PATH"
-;;	 (shell-command-to-string "source $HOME/.bashrc && printf $PATH")))
+;;   (shell-command-to-string "source $HOME/.bashrc && printf $PATH")))
 
 (defun set-exec-path-from-shell-PATH ()
   (let ((path-from-shell
@@ -27,18 +27,12 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit
-                      starter-kit-lisp
-                      starter-kit-eshell
-                      starter-kit-bindings
-                      scpaste
-                      clojure-mode
-											coffee-mode
-                      ruby-mode
-                      rinari
-											inf-ruby
+(defvar my-packages '(clojure-mode
+                      coffee-mode
                       clojure-test-mode
                       marmalade
+                      org
+                      paredit
                       color-theme
                       yasnippet))
 
