@@ -2,6 +2,7 @@ backups
 abbrev_defs
 eshell/
 places
+.smex*
 url
 elpa
 auto-save-list

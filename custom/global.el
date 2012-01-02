@@ -53,3 +53,7 @@
 
 ;; Reload file when changed on disk
 (global-auto-revert-mode t)
+
+(setq redisplay-dont-pause t)
+(setq cua-enable-cua-keys nil)
+(cua-mode)
