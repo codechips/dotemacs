@@ -51,3 +51,5 @@
 ;; Trash can support
 (setq delete-by-moving-to-trash t)
 
+;; Reload file when changed on disk
+(global-auto-revert-mode t)
