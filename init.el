@@ -26,6 +26,32 @@
 (setq-default indent-tabs-mode nil)
 
 
+(setq search-highlight t            ;; highlight when searching...
+  query-replace-highlight t)        ;; ...and replacing
+
+;; Don't start the server unless we can verify that it isn't running.
+(require 'server)
+(when (and (functionp 'server-running-p) (not (server-running-p)))
+(server-start))
+
+;; Make M-z stop minimizing frames
+(defun iconify-or-deiconify-frame nil)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "|")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
+
+;;; Drive out the mouse when it's too near to the cursor.
+(mouse-avoidance-mode 'animate)
+
+(blink-cursor-mode 0)
+
+;; disable C-z on X11 sessions
+(when window-system
+(global-unset-key "\C-z"))
+
 (require 'package)
 (setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -72,6 +98,12 @@
 
 (load-theme 'tango t)
 
+(setq org-archive-location "~/Dropbox/Org/archive.org::From %s")
+(setq org-directory "~/Dropbox/Org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-agenda-files (quote ("~/Dropbox/Org")))
+(setq org-mobile-inbox-for-pull "~/Dropbox/Org/from-mobile.org")
+
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
@@ -81,3 +113,4 @@
 (setq org-log-done t)
 
 (load "vendor/journal")
+
