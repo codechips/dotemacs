@@ -52,7 +52,7 @@
 
 ;; Make buffers with same name unique
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse
+(setq uniquify-buffer-name-style 'forward
       uniquify-separator "|"
       uniquify-after-kill-buffer-p t
       uniquify-ignore-buffers-re "^\\*")
@@ -67,6 +67,9 @@
 (set 'cursor-type 'bar)
 (set-cursor-color "#ffff00")
 
+;; Make gutter smaller
+(fringe-mode 2)
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("elpa" . "http://tromey.com/elpa/")
@@ -77,8 +80,8 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '
-  (ac-nrepl 
+(defvar my-packages
+  '(ac-nrepl 
    ack-and-a-half 
    auto-complete 
    autopair 
@@ -153,6 +156,9 @@
 
 ;; Prevent the annoying beep on errors
 (setq ring-bell-function (lambda () (message "*beep*")))
+
+;; smart pairing for all
+(electric-pair-mode t)
 
 ;; Gotta see matching parens
 (show-paren-mode t)
@@ -356,12 +362,23 @@
 (global-smart-tab-mode 1)
 
 (load "vendor/journal")
-(load "vendor/four-clj")
 (load "vendor/buffer-move")
 
 ;; Enable theme
 (add-to-list 'custom-theme-load-path "/Users/ilia/.emacs.d/themes")
 (load-theme 'deeper-blue t)
+
+;; dired - reuse current buffer by pressing 'a'
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; enable narrowing commands
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
+;; enabled change region case commands
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; clojure stuff
 (setq auto-mode-alist (cons '("\\.edn$" . clojure-mode) auto-mode-alist))
