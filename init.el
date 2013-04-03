@@ -227,16 +227,6 @@
 (projectile-global-mode 1)
 (winner-mode 1)
 
-(defun join-line-vim-style ()
-  (interactive)
-  (save-excursion
-    (let ((start (point-at-eol))
-         (end (progn
-                (next-line)
-                (back-to-indentation)
-                (point))))
-         (delete-region start end))))
-
 (defun duplicate-line ()
   (interactive)
   (let* ((cursor-column (current-column)))
@@ -330,7 +320,8 @@
 
 (global-set-key (kbd "C-x C-z") 'magit-status)
 
-(global-set-key (kbd "C-c j") 'join-line-vim-style)
+(global-set-key (kbd "C-c j") (lambda () (interactive) (join-line -1)))
+
 (global-set-key (kbd "C-c d") 'duplicate-line)
 (global-set-key (kbd "C-c h") 'helm-mini)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -369,7 +360,6 @@
 (load-theme 'deeper-blue t)
 
 ;; dired - reuse current buffer by pressing 'a'
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;; enable narrowing commands
 (put 'narrow-to-region 'disabled nil)
@@ -415,3 +405,4 @@
       (setq mac-option-modifier nil)
       (setq mac-command-modifier 'meta))))
 
+(put 'dired-find-alternate-file 'disabled nil)
