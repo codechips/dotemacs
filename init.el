@@ -168,6 +168,13 @@
 (setq truncate-lines t)
 (setq truncate-partial-width-windows nil)
 
+;; Show file path as frame title
+
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
 ;; Trailing whitespace is unnecessary
 ;; (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
