@@ -372,6 +372,12 @@
 (define-key global-map "\C-cb" 'org-iswitchb)
 (define-key global-map "\C-ca" 'org-agenda)
 
+;; deft - notational velocity for emacs
+(setq deft-extension "txt")
+(setq deft-use-filename-as-title t)
+(setq deft-directory "~/Dropbox/notes/deft")
+(define-key global-map "\C-cn" 'deft)
+
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 
@@ -381,8 +387,6 @@
 ;; Enable theme
 (add-to-list 'custom-theme-load-path "/Users/ilia/.emacs.d/themes")
 (load-theme 'deeper-blue t)
-
-;; dired - reuse current buffer by pressing 'a'
 
 ;; enable narrowing commands
 (put 'narrow-to-region 'disabled nil)
@@ -431,4 +435,4 @@
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;; Save custom settings to own file
-(setq custom-file (concat user-emacs-directory "custom-settings.el")
+(setq custom-file (concat user-emacs-directory "custom-settings.el"))
