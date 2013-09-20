@@ -84,8 +84,6 @@
   '(ac-nrepl 
    ack-and-a-half 
    auto-complete 
-   autopair 
-   birds-of-paradise-plus-theme 
    blank-mode 
    buffer-move 
    clojure-test-mode 
@@ -156,9 +154,6 @@
 
 ;; Prevent the annoying beep on errors
 (setq ring-bell-function (lambda () (message "*beep*")))
-
-;; smart pairing for all
-(autopair-mode t)
 
 ;; Gotta see matching parens
 (show-paren-mode t)
@@ -269,6 +264,11 @@
             (transpose-lines arg))
        (forward-line -1)))))
 
+(defun split-window-right-and-move-there-dammit ()
+  (interactive)
+  (split-window-right)
+  (windmove-right))
+
 (defun move-text-down (arg)
    "Move region (transient-mark-mode active) or current line arg lines down."
    (interactive "*p")
@@ -292,16 +292,14 @@
          (setq i 1)
          (setq numWindows (count-windows))
          (while  (< i numWindows)
-           (let* (
-                  (w1 (elt (window-list) i))
+           (let* ((w1 (elt (window-list) i))
                   (w2 (elt (window-list) (+ (% i numWindows) 1)))
 
                   (b1 (window-buffer w1))
                   (b2 (window-buffer w2))
 
                   (s1 (window-start w1))
-                  (s2 (window-start w2))
-                  )
+                  (s2 (window-start w2)))
              (set-window-buffer w1  b2)
              (set-window-buffer w2 b1)
              (set-window-start w1 s2)
@@ -337,10 +335,13 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-c f") 'projectile-find-file)
+(global-set-key (kbd "C-c a") 'ace-jump-mode)
 
 (global-set-key (kbd "C-<tab>") 'next-buffer)
 (global-set-key (kbd "C-S-<tab>") 'previous-buffer)
 
+(global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
+(global-set-key (kbd "M-c") 'kill-ring-save)
 
 (add-hook 'css-mode-hook '(lambda ()
                             (setq css-indent-level 2)
@@ -383,6 +384,18 @@
 
 (load "vendor/journal")
 (load "vendor/buffer-move")
+
+(defun visit-term-buffer ()
+  "Create or visit a terminal buffer."
+  (interactive)
+  (if (not (get-buffer "*ansi-term*"))
+      (progn
+        (split-window-sensibly (selected-window))
+        (other-window 1)
+        (ansi-term (getenv "SHELL")))
+    (switch-to-buffer-other-window "*ansi-term*")))
+
+(global-set-key (kbd "C-c t") 'visit-term-buffer)
 
 ;; Enable theme
 (add-to-list 'custom-theme-load-path "/Users/ilia/.emacs.d/themes")
@@ -436,3 +449,4 @@
 
 ;; Save custom settings to own file
 (setq custom-file (concat user-emacs-directory "custom-settings.el"))
+
